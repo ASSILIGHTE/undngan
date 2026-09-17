@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Undangan Digital Pernikahan Sadewa & Aruna. Bergabunglah dalam perayaan kebahagiaan kami.">
+  <title>The Wedding of Sadewa & Aruna</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Grandstander:wght@400;600;700&family=Patrick+Hand&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Short+Stack&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/lightbox.css">
+</head>
+<body class="invitation-locked">
+
+  <!-- Floating Top Scroll Reading Progress Bar -->
+  <div id="scroll-progress-bar"></div>
+
+  <!-- ==========================================================================
+       AMBIENT ATMOSPHERIC BACKGROUND MOTION LAYER
+       ========================================================================== -->
+  <div id="ambient-background-layer">
+    <div class="ambient-blob ambient-blob-1"></div>
+    <div class="ambient-blob ambient-blob-2"></div>
+    <div class="ambient-blob ambient-blob-3"></div>
+    <div class="ambient-blob ambient-blob-4"></div>
+  </div>
+
+  <!-- ==========================================================================
+       PRELOADER / LOADING SCREEN (TRIGGERED 4-SECOND LOADING ON BUTTON CLICK)
+       ========================================================================== -->
+  <div id="preloader">
+    <div class="preloader-content text-center">
+      <div class="preloader-heart">💖</div>
+      <h2 class="preloader-title">Sadewa & Aruna</h2>
+      <p class="preloader-sub">Preparing Our Special Story...</p>
+      
+      <div class="preloader-bar-wrap">
+        <div class="preloader-bar"></div>
+      </div>
+      <div class="preloader-pearls">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       CANVAS FLOATING PEARL & PETAL PARTICLES
+       ========================================================================== -->
+  <canvas id="leaves-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 100;"></canvas>
+
+  <!-- ==========================================================================
+       PAGE 1: COVER / OPENING MODAL (MATCHING REFERENCE DESIGN)
+       ========================================================================== -->
+  <div id="cover-modal">
+    <!-- Top-Right Burgundy Rose & Pearls Decorative Image -->
+    <img src="assets/images/rose_top.png" alt="Burgundy Rose Top Decor" class="cover-flower-top">
+
+    <!-- Bottom-Left Burgundy Rose & Pearl Garland Image -->
+    <img src="assets/images/rose_bottom.png" alt="Burgundy Rose Bottom Decor" class="cover-flower-bottom">
+
+    <div class="cover-card text-center">
+      <!-- Tag / Badge -->
+      <div class="cover-tag">The Wedding Invitation</div>
+
+      <!-- Main Green Headline -->
+      <h1 class="cover-headline">
+        <span>These Kids</span>
+        <span>are Getting</span>
+        <span>Married</span>
+      </h1>
+
+      <!-- Cute Sticker Avatar Badges -->
+      <div class="stickers-wrapper">
+        <div class="sticker-avatar bride-sticker">
+          <img src="assets/images/bride_sticker.png" alt="Aruna - Bride Avatar">
+        </div>
+        <div class="sticker-avatar groom-sticker">
+          <img src="assets/images/groom_sticker.png" alt="Sadewa - Groom Avatar">
+        </div>
+      </div>
+
+      <!-- Couple Names in Dark Maroon Handwritten Font -->
+      <h2 class="cover-couple-names">Sadewa <span class="ampersand">&</span> Aruna</h2>
+      <p class="cover-date-text">Senin, 7 Desember 2026</p>
+
+      <!-- Recipient Guest Greeting Box -->
+      <div class="guest-greeting-box">
+        <span class="guest-label">Kepada Yth. Bapak/Ibu/Saudara/i:</span>
+        <h4 class="guest-name" id="guest-name-display">Tamu Undangan</h4>
+      </div>
+
+      <!-- Prominent Primary Action Button ("Buka Undangan") -->
+      <button id="btn-open-invitation" class="btn-open-primary" title="Klik untuk Membuka Undangan & Memutar Musik">
+        <svg viewBox="0 0 24 24" class="btn-envelope-icon"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <span>Buka Undangan</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FLOATING NAVIGATION BAR
+       ========================================================================== -->
+  <nav id="main-navbar">
+    <ul class="nav-menu">
+      <li><a href="#home" class="nav-link active">Home</a></li>
+      <li><a href="#couple" class="nav-link">Couple</a></li>
+      <li><a href="#story" class="nav-link">Story</a></li>
+      <li><a href="#event" class="nav-link">Event</a></li>
+      <li><a href="#gallery" class="nav-link">Gallery</a></li>
+      <li><a href="#rsvp" class="nav-link">RSVP</a></li>
+    </ul>
+  </nav>
+
+  <!-- ==========================================================================
+       GUEST LINK GENERATOR TOOL (INTERACTIVE MODAL FOR HOST)
+       ========================================================================== -->
+  <button id="btn-guest-widget" class="floating-guest-widget" onclick="toggleGuestModal()" title="Generator Link Nama Tamu Khusus Pemilik Undangan">
+    <span>✨ Buat Link Tamu</span>
+  </button>
+
+  <div id="guest-modal" class="guest-modal-backdrop">
+    <div class="guest-modal-card text-center">
+      <button class="guest-modal-close" onclick="toggleGuestModal()">&times;</button>
+      <div class="guest-modal-icon">💌</div>
+      <h3 class="guest-modal-title">Custom Nama Tamu Undangan</h3>
+      <p class="guest-modal-desc">Ketik nama tamu di bawah ini untuk membuat link undangan khusus:</p>
+      
+      <div class="form-group" style="text-align: left; margin-top: 1rem;">
+        <label for="custom-guest-input">Nama Tamu / Keluarga</label>
+        <input type="text" id="custom-guest-input" class="form-control" placeholder="Contoh: Bapak Rudi & Keluarga" oninput="generateGuestLink()">
+      </div>
+
+      <div class="generated-link-box">
+        <label>Preview Link Undangan Khusus:</label>
+        <div id="generated-url-text" class="url-preview-text">http://...</div>
+      </div>
+
+      <div class="guest-modal-actions">
+        <button class="btn-primary-theme" onclick="copyGeneratedGuestLink()">
+          <span>📋 Salin Link</span>
+        </button>
+        <button class="btn-secondary-theme" onclick="shareGuestWhatsApp()" style="background: #25D366; color: #fff; border-color: #25D366; margin-top: 0;">
+          <span>💬 Kirim WhatsApp</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-notification"></div>
+
+  <!-- ==========================================================================
+       FLOATING AUDIO CONTROLLER
+       ========================================================================== -->
+  <button id="audio-control" class="paused" title="Toggle Background Music">
+    <div class="audio-waves">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+  <audio id="bg-audio" src="assets/audio/music.mp3" loop preload="auto"></audio>
+
+  <!-- ==========================================================================
+       HERO SECTION (HOME)
+       ========================================================================== -->
+  <section id="home">
+    <div class="container">
+      <div class="hero-card reveal-zoom text-center">
+        <div class="hero-tag">The Wedding Celebration</div>
+        
+        <p class="hero-subtitle">Together With Their Families</p>
+        
+        <h2 class="hero-names">Sadewa & Aruna</h2>
+        
+        <p class="hero-quote">
+          "Two souls with but a single thought, two hearts that beat as one."
+        </p>
+
+        <div class="hero-date-badge">
+          07 . 12 . 2026
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       QURAN VERSE SECTION (QS. AR-RUM: 21)
+       ========================================================================== -->
+  <section id="quran-verse" class="section-padding">
+    <div class="container">
+      <div class="quran-card reveal-flip">
+        <div class="quran-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        
+        <p class="quran-arabic" lang="ar" dir="rtl">
+          وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
+        </p>
+
+        <p class="quran-translation">
+          "Dan di antara tanda-tanda (kebesaran-Nya) ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."
+        </p>
+
+        <div class="quran-badge">
+          <span>QS. Ar-Rum: 21</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PAGE 2: OUR STORY & COUPLE SECTION
+       ========================================================================== -->
+  <section id="couple" class="section-padding">
+    <div class="container">
+      <div class="text-center reveal-on-scroll">
+        <span class="section-tag">Groom & Bride</span>
+        <h2 class="section-title">The Happy Couple</h2>
+        <div class="theme-divider">
+          <span class="pearl-dot"></span>
+          <span class="pearl-dot big"></span>
+          <span class="pearl-dot"></span>
+        </div>
+      </div>
+
+      <!-- Couple Profiles -->
+      <div class="couple-grid">
+        <!-- Bride -->
+        <div class="couple-card reveal-left delay-1">
+          <div class="couple-img-wrap sticker-frame">
+            <img src="assets/images/bride_sticker.png" alt="Aruna - The Bride">
+          </div>
+          <div class="couple-role">The Bride</div>
+          <h3 class="couple-name">Aruna</h3>
+          <p class="couple-desc">
+            Putri dari Bapak & Ibu Aruna.
+            Sosok hangat dan periang yang senantiasa membawa keceriaan dan keindahan dalam setiap langkah hidupnya.
+          </p>
+          <p class="couple-parents">@aruna.wedding</p>
+        </div>
+
+        <!-- Groom -->
+        <div class="couple-card reveal-right delay-2">
+          <div class="couple-img-wrap sticker-frame">
+            <img src="assets/images/groom_sticker.png" alt="Sadewa - The Groom">
+          </div>
+          <div class="couple-role">The Groom</div>
+          <h3 class="couple-name">Sadewa</h3>
+          <p class="couple-desc">
+            Putra dari Bapak & Ibu Sadewa.
+            Pria penyayang dan berhati lembut yang senantiasa siap menjaga dan mengasihi dengan segenap ketulusannya.
+          </p>
+          <p class="couple-parents">@sadewa.wedding</p>
+        </div>
+      </div>
+
+      <!-- Story Timeline Section -->
+      <div id="story" class="reveal-on-scroll" style="margin-top: 5rem;">
+        <div class="text-center">
+          <span class="section-tag">私たちの物語 — Our Journey</span>
+          <h2 class="section-title">Our Story</h2>
+        </div>
+
+        <div class="story-timeline">
+          <div class="timeline-item reveal-left delay-1">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2022</div>
+            <h4 class="timeline-title">The First Meeting</h4>
+            <p class="timeline-text">
+              Pertemuan pertama di sebuah kedai teh tradisional di Kyoto. Berawal dari percakapan sederhana tentang aroma matcha yang khas, tumbuh benih rasa yang mendalam.
+            </p>
+          </div>
+
+          <div class="timeline-item reveal-right delay-2">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2023</div>
+            <h4 class="timeline-title">The Beginning</h4>
+            <p class="timeline-text">
+              Kami memutuskan untuk berjalan beriringan. Menghabiskan akhir pekan di taman-taman botanical dan saling melengkapi impian satu sama lain.
+            </p>
+          </div>
+
+          <div class="timeline-item reveal-left delay-3">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2025</div>
+            <h4 class="timeline-title">A New Chapter</h4>
+            <p class="timeline-text">
+              Di bawah rindangnya pohon maple merah di sore musim gugur, sebuah janji suci diucapkan untuk melangkah ke jenjang pernikahan.
+            </p>
+          </div>
+
+          <div class="timeline-item reveal-right delay-4">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2026</div>
+            <h4 class="timeline-title">Forever Starts Here</h4>
+            <p class="timeline-text">
+              Hari yang paling dinantikan. Kami menyatukan dua hati dan dua keluarga dalam ikatan pernikahan yang abadi.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PAGE 3: WEDDING DETAILS & REALTIME COUNTDOWN
+       ========================================================================== -->
+  <section id="event" class="section-padding">
+    <div class="container">
+      <div class="text-center reveal-on-scroll">
+        <span class="section-tag">Wedding Celebration</span>
+        <h2 class="section-title">Save The Date</h2>
+        <p class="section-subtitle">
+          Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.
+        </p>
+      </div>
+
+      <!-- Events Wrapper -->
+      <div class="events-wrapper">
+        <!-- Akad / Ceremony -->
+        <div class="event-card reveal-left delay-1">
+          <div class="event-badge">Ceremony</div>
+          <h3 class="event-title">Akad Nikah</h3>
+          
+          <div class="event-detail-item">
+            <strong>📅 Hari & Tanggal</strong>
+            Senin, 7 Desember 2026
+          </div>
+
+          <div class="event-detail-item">
+            <strong>⏰ Waktu</strong>
+            09:00 WIB – Selesai
+          </div>
+
+          <div class="event-detail-item">
+            <strong>📍 Tempat & Alamat</strong>
+            Grand Magnolia Ballroom<br>
+            Jl. Sunset Boulevard No. 11, Jakarta
+          </div>
+
+          <a href="https://maps.google.com" target="_blank" class="btn-secondary-theme">
+            <span>View Location</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+        </div>
+
+        <!-- Reception -->
+        <div class="event-card reveal-right delay-2">
+          <div class="event-badge">Reception</div>
+          <h3 class="event-title">Resepsi Pernikahan</h3>
+
+          <div class="event-detail-item">
+            <strong>📅 Hari & Tanggal</strong>
+            Senin, 7 Desember 2026
+          </div>
+
+          <div class="event-detail-item">
+            <strong>⏰ Waktu</strong>
+            11:00 WIB – 15:00 WIB
+          </div>
+
+          <div class="event-detail-item">
+            <strong>📍 Tempat & Alamat</strong>
+            The Glass House Garden<br>
+            Jl. Sunset Boulevard No. 11, Jakarta
+          </div>
+
+          <a href="https://maps.google.com" target="_blank" class="btn-secondary-theme">
+            <span>View Location</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Realtime Countdown Box -->
+      <div class="countdown-box reveal-flip">
+        <h3>Countdown To Our Special Day</h3>
+        <div class="countdown-grid">
+          <div class="countdown-unit">
+            <div id="cd-days" class="countdown-num">00</div>
+            <div class="countdown-lbl">Days</div>
+          </div>
+          <div class="countdown-unit">
+            <div id="cd-hours" class="countdown-num">00</div>
+            <div class="countdown-lbl">Hours</div>
+          </div>
+          <div class="countdown-unit">
+            <div id="cd-minutes" class="countdown-num">00</div>
+            <div class="countdown-lbl">Minutes</div>
+          </div>
+          <div class="countdown-unit">
+            <div id="cd-seconds" class="countdown-num">00</div>
+            <div class="countdown-lbl">Seconds</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 2rem;">
+          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+Wedding+of+Sadewa+%26+Aruna&dates=20261207T020000Z/20261207T080000Z&details=Pernikahan+Sadewa+%26+Aruna.&location=Grand+Magnolia+Ballroom" target="_blank" class="btn-primary-theme">
+            <span>Add To Google Calendar</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PAGE 4: GALLERY & MEMORIES
+       ========================================================================== -->
+  <section id="gallery" class="section-padding">
+    <div class="container">
+      <div class="text-center reveal-on-scroll">
+        <span class="section-tag">Memories & Moments</span>
+        <h2 class="section-title">Our Gallery</h2>
+        <p class="section-subtitle">Momen kebersamaan yang kami abadikan dalam setiap langkah cinta kami.</p>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="gallery-grid">
+        <div class="gallery-item reveal-zoom delay-1" data-fullsrc="assets/images/gallery_1.png">
+          <div class="gallery-img-box">
+            <img src="assets/images/gallery_1.png" alt="Sweet Promenade">
+          </div>
+          <div class="gallery-caption">Sweet Promenade</div>
+        </div>
+
+        <div class="gallery-item reveal-zoom delay-2" data-fullsrc="assets/images/gallery_2.png">
+          <div class="gallery-img-box">
+            <img src="assets/images/gallery_2.png" alt="Rose Bouquet Gift">
+          </div>
+          <div class="gallery-caption">Rose Bouquet Gift</div>
+        </div>
+
+        <div class="gallery-item reveal-zoom delay-3" data-fullsrc="assets/images/gallery_3.png">
+          <div class="gallery-img-box">
+            <img src="assets/images/gallery_3.png" alt="Sadewa - The Groom">
+          </div>
+          <div class="gallery-caption">Sadewa</div>
+        </div>
+
+        <div class="gallery-item reveal-zoom delay-1" data-fullsrc="assets/images/gallery_4.png">
+          <div class="gallery-img-box">
+            <img src="assets/images/gallery_4.png" alt="Aruna - The Bride">
+          </div>
+          <div class="gallery-caption">Aruna</div>
+        </div>
+
+        <div class="gallery-item reveal-zoom delay-2" data-fullsrc="assets/images/gallery_5.png">
+          <div class="gallery-img-box">
+            <img src="assets/images/gallery_5.png" alt="Our Happy Story">
+          </div>
+          <div class="gallery-caption">Our Happy Story</div>
+        </div>
+
+        <div class="gallery-item reveal-zoom delay-3" data-fullsrc="assets/images/gallery_6.png">
+          <div class="gallery-img-box">
+            <img src="assets/images/gallery_6.png" alt="Everlasting Love">
+          </div>
+          <div class="gallery-caption">Everlasting Love</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PAGE 5: RSVP & WISHES & DIGITAL GIFT
+       ========================================================================== -->
+  <section id="rsvp" class="section-padding">
+    <div class="container">
+      <div class="text-center reveal-on-scroll">
+        <span class="section-tag">RSVP & Warm Wishes</span>
+        <h2 class="section-title">Will You Join Us?</h2>
+        <p class="section-subtitle">Mohon konfirmasi kehadiran Anda untuk membantu kami menyambut kedatangan Anda.</p>
+      </div>
+
+      <div class="rsvp-grid">
+        <!-- RSVP Form -->
+        <div class="rsvp-card reveal-left delay-1">
+          <h3 class="font-handwriting" style="font-size: 1.8rem; color: var(--text-maroon); margin-bottom: 1.5rem;">Form Konfirmasi Kehadiran</h3>
+          
+          <form id="rsvp-form">
+            <div class="form-group">
+              <label for="rsvp-name">Nama Lengkap</label>
+              <input type="text" id="rsvp-name" class="form-control" placeholder="Masukkan nama Anda" required>
+            </div>
+
+            <div class="form-group">
+              <label for="rsvp-attendance">Konfirmasi Kehadiran</label>
+              <select id="rsvp-attendance" class="form-control">
+                <option value="accept">Joyfully Accept (Hadir)</option>
+                <option value="decline">Regretfully Decline (Tidak Hadir)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="rsvp-guests">Jumlah Tamu</label>
+              <select id="rsvp-guests" class="form-control">
+                <option value="1">1 Orang</option>
+                <option value="2">2 Orang</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="rsvp-message">Ucapan & Doa Restu</label>
+              <textarea id="rsvp-message" class="form-control" rows="4" placeholder="Tuliskan ucapan dan doa hangat Anda..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary-theme" style="width: 100%; justify-content: center;">
+              <span>Kirim Konfirmasi</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Wishes Wall -->
+        <div class="wishes-card reveal-right delay-2">
+          <h3 class="font-handwriting" style="font-size: 1.8rem; color: var(--text-maroon); margin-bottom: 1.5rem;">Papan Ucapan Restu</h3>
+          <div id="wishes-stream" class="wishes-stream">
+            <!-- Dynamic Wishes render here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Digital Envelope / Gift Box -->
+      <div class="gift-card reveal-zoom" style="margin-top: 4rem;">
+        <div class="gift-badge-icon">🎁</div>
+        <h3>Wedding Gift / Amplop Digital</h3>
+        <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 550px; margin: 0 auto 2rem auto;">
+          Doa restu Anda merupakan hadiah terindah bagi kami. Namun apabila Anda hendak memberikan tanda kasih, Anda dapat menyalurkannya melalui:
+        </p>
+
+        <div class="bank-grid">
+          <div class="bank-item">
+            <div class="bank-name">Bank BCA</div>
+            <div class="account-num">8830-9124-77</div>
+            <div class="account-holder">a.n. Aruna</div>
+            <button class="btn-copy" onclick="copyToClipboard('8830912477', 'Nomor Rekening BCA')">Copy No. Rekening</button>
+          </div>
+
+          <div class="bank-item">
+            <div class="bank-name">Bank Mandiri</div>
+            <div class="account-num">1370-0012-9941</div>
+            <div class="account-holder">a.n. Sadewa</div>
+            <button class="btn-copy" onclick="copyToClipboard('137000129941', 'Nomor Rekening Mandiri')">Copy No. Rekening</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PAGE 6: CLOSING & FOOTER
+       ========================================================================== -->
+  <section id="closing">
+    <div class="container text-center reveal-zoom">
+      <div class="heart-icon-badge" style="margin-bottom: 1.5rem;">💖</div>
+
+      <div class="doa-quote-card">
+        <p class="closing-doa-arabic" lang="ar" dir="rtl">
+          بَارَكَ اللهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ
+        </p>
+
+        <p class="doa-text-animated">
+          "Semoga Allah memberkahimu di waktu bahagia dan memberkahimu di waktu susah, serta menyatukan kalian berdua dalam kebaikan."
+        </p>
+      </div>
+
+      <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+        Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.
+      </p>
+
+      <h2 class="closing-names">Sadewa & Aruna</h2>
+      <p style="font-family: var(--font-handwriting); font-size: 1.3rem; letter-spacing: 0.1em; color: var(--text-maroon);">07 . 12 . 2026</p>
+
+      <div>
+        <a href="#home" class="btn-top">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          <span>Back To Top</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="js/particles.js"></script>
+  <script src="js/countdown.js"></script>
+  <script src="js/rsvp.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
