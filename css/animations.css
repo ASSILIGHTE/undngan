@@ -298,3 +298,18 @@
   font-weight: 600;
   margin: 0 auto;
 }
+
+/* Mobile Responsiveness & Overflow Protection */
+@media (max-width: 768px) {
+  .reveal-left {
+    transform: translateY(30px) scale(0.97) !important;
+  }
+  .reveal-right {
+    transform: translateY(30px) scale(0.97) !important;
+  }
+  .reveal-left.revealed,
+  .reveal-right.revealed {
+    transform: translateY(0) scale(1) !important;
+  }
+}
+
