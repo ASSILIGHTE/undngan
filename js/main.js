@@ -284,59 +284,8 @@ function playPluckedNote(frequency) {
 }
 
 /* --------------------------------------------------------------------------
-   GUEST LINK GENERATOR & TOAST NOTIFICATION HELPERS
+   TOAST NOTIFICATION HELPERS
    -------------------------------------------------------------------------- */
-function toggleGuestModal() {
-  const modal = document.getElementById('guest-modal');
-  if (modal) {
-    modal.classList.toggle('active');
-    if (modal.classList.contains('active')) {
-      generateGuestLink();
-    }
-  }
-}
-
-function generateGuestLink() {
-  const input = document.getElementById('custom-guest-input');
-  const preview = document.getElementById('generated-url-text');
-  const guestDisplay = document.getElementById('guest-name-display');
-  const rsvpInput = document.getElementById('rsvp-name');
-  
-  const val = input ? input.value.trim() : '';
-  const baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
-  const finalUrl = val ? `${baseUrl}?to=${encodeURIComponent(val)}` : baseUrl;
-  
-  if (preview) preview.innerText = finalUrl;
-  if (val) {
-    if (guestDisplay) guestDisplay.innerText = val;
-    if (rsvpInput) rsvpInput.value = val;
-  }
-}
-
-function copyGeneratedGuestLink() {
-  const input = document.getElementById('custom-guest-input');
-  const val = input ? input.value.trim() : 'Tamu Undangan';
-  const baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
-  const finalUrl = val && val !== 'Tamu Undangan' ? `${baseUrl}?to=${encodeURIComponent(val)}` : baseUrl;
-  
-  navigator.clipboard.writeText(finalUrl).then(() => {
-    showToast(`Link Undangan untuk "${val}" Berhasil Disalin!`);
-  }).catch(() => {
-    showToast(`Link: ${finalUrl}`);
-  });
-}
-
-function shareGuestWhatsApp() {
-  const input = document.getElementById('custom-guest-input');
-  const val = input ? input.value.trim() : 'Tamu Undangan';
-  const baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
-  const finalUrl = val && val !== 'Tamu Undangan' ? `${baseUrl}?to=${encodeURIComponent(val)}` : baseUrl;
-  
-  const text = `Kepada Yth. ${val},\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami:\n\n*Sadewa & Aruna*\n📅 Senin, 7 Desember 2026\n\nDetail lengkap undangan dapat dilihat melalui tautan berikut:\n${finalUrl}\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.\n\nTerima Kasih,\n*Sadewa & Aruna*`;
-  
-  const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
-  window.open(waUrl, '_blank');
-}
 
 function showToast(message) {
   const toast = document.getElementById('toast-notification');

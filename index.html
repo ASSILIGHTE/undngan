@@ -117,40 +117,7 @@
     </ul>
   </nav>
 
-  <!-- ==========================================================================
-       GUEST LINK GENERATOR TOOL (INTERACTIVE MODAL FOR HOST)
-       ========================================================================== -->
-  <button id="btn-guest-widget" class="floating-guest-widget" onclick="toggleGuestModal()" title="Generator Link Nama Tamu Khusus Pemilik Undangan">
-    <span>✨ Buat Link Tamu</span>
-  </button>
 
-  <div id="guest-modal" class="guest-modal-backdrop">
-    <div class="guest-modal-card text-center">
-      <button class="guest-modal-close" onclick="toggleGuestModal()">&times;</button>
-      <div class="guest-modal-icon">💌</div>
-      <h3 class="guest-modal-title">Custom Nama Tamu Undangan</h3>
-      <p class="guest-modal-desc">Ketik nama tamu di bawah ini untuk membuat link undangan khusus:</p>
-      
-      <div class="form-group" style="text-align: left; margin-top: 1rem;">
-        <label for="custom-guest-input">Nama Tamu / Keluarga</label>
-        <input type="text" id="custom-guest-input" class="form-control" placeholder="Contoh: Bapak Rudi & Keluarga" oninput="generateGuestLink()">
-      </div>
-
-      <div class="generated-link-box">
-        <label>Preview Link Undangan Khusus:</label>
-        <div id="generated-url-text" class="url-preview-text">http://...</div>
-      </div>
-
-      <div class="guest-modal-actions">
-        <button class="btn-primary-theme" onclick="copyGeneratedGuestLink()">
-          <span>📋 Salin Link</span>
-        </button>
-        <button class="btn-secondary-theme" onclick="shareGuestWhatsApp()" style="background: #25D366; color: #fff; border-color: #25D366; margin-top: 0;">
-          <span>💬 Kirim WhatsApp</span>
-        </button>
-      </div>
-    </div>
-  </div>
 
   <!-- Toast Notification Container -->
   <div id="toast-notification"></div>
